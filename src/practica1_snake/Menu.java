@@ -12,7 +12,7 @@ package practica1_snake;
 import java.util.Scanner;
 public class Menu {
     Scanner in=new Scanner(System.in);  
-    int opcion,tama,fila,columna;
+    int opcion,tama,table;
     String nombre;
     public int arriba=3;
    
@@ -25,32 +25,12 @@ public class Menu {
         System.out.println("4) Salir");
         System.out.println("Seleccione el numero de la opcion deseada");
         opcion=in.nextInt();
-        
+        borrar();
         switch(opcion){
-            case 1: 
-               
-                System.out.println("Ingrese nombre de usuario");
-                nombre=in.next();        
-                System.out.println("ingrese # de columnas mayor a 10");
-                columna=in.nextInt();
-                //condicion para que ingrese # de colunas mayor a 10
-                 while(columna<10){
-                    System.out.println("ingrese # de columnas mayor a 10");
-                    columna=in.nextInt();
-                }
-                //fin condicion para que ingrese # de colunas mayor a 10
-                System.out.println("Ingrese # de filas mayor a 10");
-                fila=in.nextInt();
-                //condicion para que ingrese # de filas mayor a 10
-                while(fila<10){
-                    System.out.println("ingrese # de filas1 mayor a 10");
-                    fila=in.nextInt();
-                }
-                //fin condicion para que ingrese # de filas mayor a 10
-                System.out.println("Ingrese el tama;o de Snake deseado");
-                tama=in.nextInt();
-                
-                juego();
+            case 1:                
+                iniciojuego();
+                borrar();
+                juegotabla();
                 new Menu();
                 break;
             case 2:
@@ -65,26 +45,22 @@ public class Menu {
         }
         
     }
-    public void juego(){
-        String tablero[][]=new String[fila][columna];
-        
+    public void juegotabla(){
+        String tablero[][]=new String[table][table];
         int a;
         int b;
-        a=(int)(Math.random()*fila);
-        b=(int)(Math.random()*columna);
+        a=(int)(Math.random()*table);
+        b=(int)(Math.random()*table);
         tablero[a][b]=" X ";
-        
-        for(int i=0;i<fila;i++){   
+        for(int i=0;i<table;i++){   
             System.out.println("  ");
-            for(int j=0;j<columna;j++){
-                if(tablero[i][j]!=null){
-                   
+            for(int j=0;j<table;j++){
+                if(tablero[i][j]!=null){   
                 }else{tablero[i][j]="   ";}
-                          
                 tablero[0][j]="-@-";
                 tablero[i][0]=" @ ";
-                tablero[i][columna-1]="@";
-                tablero[fila-1][j]="-@-";
+                tablero[i][table-1]="@";
+                tablero[table-1][j]="-@-";
                 System.out.print(tablero[i][j]);
             }
           
@@ -99,8 +75,24 @@ public class Menu {
     public void historial(){
         
     }
-    public void comida(){
-        
+    public void borrar(){
+        for(int i=0;i<=60;i++){
+            System.out.println("");
+        }
+    }
+    public void iniciojuego(){
+        System.out.println("Ingrese nombre de usuario");
+        nombre=in.next();        
+        System.out.println("ingrese rama;o del tablero maor a 10");
+        table=in.nextInt();
+        //condicion tama;o de tablero mayor a 10
+        while(table<10){
+            System.out.println("ingrese # de columnas mayor a 10");
+            table=in.nextInt();
+            }
+            //fin condicion tama;o de mayor a 10
+        System.out.println("Ingrese el tama;o de Snake deseado");
+        tama=in.nextInt();
     }
    
 }
