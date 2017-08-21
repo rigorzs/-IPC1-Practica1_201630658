@@ -13,12 +13,14 @@ import java.util.Scanner;
 public class Menu {
     Scanner in=new Scanner(System.in);  
     int opcion,tama,table,cuerpo[][]=new int[300][2],n=1,x,y,mitad,tct,puntos=0;
-    int cont=0;
+    int cont=1,a=0,b=0;
     String nombre;
     String movimiento;
-    String tablero[][];
+    String tablero[][]; 
+    String historia[][]=new String[6][5];
     public int arriba=3;  
-    public Menu(){
+    public void menu(){
+        borrar();
         Inicio();
         switch(opcion){
             case 1: 
@@ -33,15 +35,19 @@ public class Menu {
                    teclas(); 
                    guardarposicion();
                 }
-                
+                if(cont==6){
+                    cont=1;
+                }else{historial();cont++;}
                 //finmovimientos
-                new Menu();
+                tct=1;
+                 menu();
                 break;
             case 2:
                 
                 break;
             case 3:
-                historial();
+                imphisto(); 
+                //new Menu();
                 break;
             case 4:
                 
@@ -57,25 +63,39 @@ public class Menu {
             for(int j=0;j<(table+1);j++){
                 if(tablero[i][j]!=null){                    
                 }else{tablero[i][j]=" ";}
-                if("?".equals(tablero[i][j])){
-                    tablero[i][j]=" ";
-                            
-                }
+       
                 tablero[0][j]="@";
                 tablero[i][0]="@";
                 tablero[i][table]="@";
                 tablero[table][j]="@";
-                tablero[(cuerpo[n][1])][(cuerpo[n][0])]="?";
+                if (i==cuerpo[n][1] && j==cuerpo[n][0]){
+                    tablero[(cuerpo[n][1])][(cuerpo[n][0])]="?";
+                    tablero[(cuerpo[n+1][1])][(cuerpo[n+1][0])]="?";
+                    tablero[(cuerpo[n-1][1])][(cuerpo[n-1][0])]="?";
+                    tablero[(cuerpo[n+2][1])][(cuerpo[n+2][0])]="?";
+                }else{tablero[(cuerpo[n][1])][(cuerpo[n][0])]=" ";}
                 
                 System.out.print(tablero[i][j]);
             } 
-        }System.out.println("");   
+        }
+        
+        System.out.println("");   
     }
     public void animacion(){
         
     }
     public void historial(){
-        
+        historia[0][0]="JUGADOR: #";
+        historia[0][1]="PUNTEO: #";
+        historia[0][2]="TAMA;O TABLERO: #";
+        historia[0][3]="TAMA;O SNAKE INICIAL: #";
+        historia[cont][0]=nombre+"    ";
+        String h=String.valueOf("    "+puntos+"  ");
+        historia[cont][1]=h;
+        String i=String.valueOf("    "+table+"  ");
+        historia[cont][2]="     "+i+"x"+i+"  ";
+        String j=String.valueOf("    "+tama+"  ");
+        historia[cont][3]=j;
     }
     public void borrar(){
         for(int i=0;i<=60;i++){
@@ -83,6 +103,12 @@ public class Menu {
     }
     }
     public void iniciojuego(){
+        n=1;
+        x=0;
+        y=0;
+        mitad=0;
+        tct=1;
+        puntos=0;
         System.out.println("Ingrese nombre de usuario");
         nombre=in.next();        
         System.out.println("ingrese rama;o del tablero mayor a 10");
@@ -111,8 +137,7 @@ public class Menu {
         if(n==tama) n=1;
     }
     public void comida(){
-        int a;
-        int b;
+
         a=(int)(Math.random()*table);
         b=(int)(Math.random()*table);
     }
@@ -142,14 +167,33 @@ public class Menu {
                    //teclas        
     }
     public void Inicio(){
-        System.out.println(" ");
-        System.out.println("   Munu  ");
-        System.out.println("1) Inicio del juego");
-        System.out.println("2) Datos Estudiante");
-        System.out.println("3) Historial de partidas");
-        System.out.println("4) Salir");
-        System.out.println("Seleccione el numero de la opcion deseada");
+        System.out.println("##################################");
+        System.out.println("###################################");
+        System.out.println("###           Munu             #####");
+        System.out.println("#####################################");
+        System.out.println("###  1) Inicio del juego       #######");
+        System.out.println("#######################################");
+        System.out.println("###  2) Datos Estudiante       #########");
+        System.out.println("#########################################");
+        System.out.println("###  3) Historial de partidas  ###########");
+        System.out.println("###########################################");
+        System.out.println("###  4) Salir                  #############");
+        System.out.println("#############################################");
+        System.out.println("##############################################");
+        System.out.println("# Seleccione el numero de la opcion deseada ###");
+        System.out.println("################################################");
         opcion=in.nextInt();
         borrar();
+    }
+    public void imphisto(){
+     historial();
+     for(int i=0;i<6;i++){   
+            System.out.println(" ");
+            for(int j=0;j<4;j++){
+                 if(historia[i][j]!=null){                    
+                }else{historia[i][j]=" ";}
+                System.out.print(historia[i][j]);
+            } 
+        }
     }
 }

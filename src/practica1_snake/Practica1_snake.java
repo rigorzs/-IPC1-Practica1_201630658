@@ -18,8 +18,7 @@ public class Practica1_snake {
     public static void main(String[] args) {
         // TODO code application logic here
         Menu myClase=new Menu();
-        
-        
+        myClase.menu();
     }
     
 }
