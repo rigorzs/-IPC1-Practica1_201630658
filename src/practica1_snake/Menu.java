@@ -18,6 +18,7 @@ public class Menu {
     String movimiento;
     String tablero[][]; 
     String historia[][]=new String[6][5];
+    String cualquiera;
     public int arriba=3;  
     public void menu(){
         borrar();
@@ -46,8 +47,10 @@ public class Menu {
                 
                 break;
             case 3:
-                imphisto(); 
-                //new Menu();
+                imphisto();
+                System.out.println("\033[32m ingrese cualquier dato para contunuar");
+                cualquiera=in.next();
+                menu();
                 break;
             case 4:
                 
@@ -64,17 +67,22 @@ public class Menu {
                 if(tablero[i][j]!=null){                    
                 }else{tablero[i][j]=" ";}
        
-                tablero[0][j]="@";
-                tablero[i][0]="@";
-                tablero[i][table]="@";
-                tablero[table][j]="@";
+                tablero[0][j]="\033[36m@";
+                tablero[i][0]="\033[36m@";
+                tablero[i][table]="\033[36m@";
+                tablero[table][j]="\033[36m@";
                 if (i==cuerpo[n][1] && j==cuerpo[n][0]){
-                    tablero[(cuerpo[n][1])][(cuerpo[n][0])]="?";
-                    tablero[(cuerpo[n+1][1])][(cuerpo[n+1][0])]="?";
-                    tablero[(cuerpo[n-1][1])][(cuerpo[n-1][0])]="?";
-                    tablero[(cuerpo[n+2][1])][(cuerpo[n+2][0])]="?";
+                    tablero[(cuerpo[n][1])][(cuerpo[n][0])]="\033[32m?";
+                    tablero[(cuerpo[n+1][1])][(cuerpo[n+1][0])]="\033[32m?";
+                    tablero[(cuerpo[n-1][1])][(cuerpo[n-1][0])]="\033[32m?";
+                    tablero[(cuerpo[n+2][1])][(cuerpo[n+2][0])]="\033[32m?";
                 }else{tablero[(cuerpo[n][1])][(cuerpo[n][0])]=" ";}
-                
+                if(a==cuerpo[n][1] && b==cuerpo[n][0]){
+                tama++;
+                tablero[a][b]=" ";
+                puntos++;
+                comida();
+                }
                 System.out.print(tablero[i][j]);
             } 
         }
@@ -85,16 +93,16 @@ public class Menu {
         
     }
     public void historial(){
-        historia[0][0]="JUGADOR: #";
+        historia[0][0]="JUGADOR:  #";
         historia[0][1]="PUNTEO: #";
         historia[0][2]="TAMA;O TABLERO: #";
-        historia[0][3]="TAMA;O SNAKE INICIAL: #";
-        historia[cont][0]=nombre+"    ";
-        String h=String.valueOf("    "+puntos+"  ");
+        historia[0][3]="SNAKE INICIAL: #";
+        historia[cont][0]=nombre+"     ";
+        String h=String.valueOf("      "+puntos+"  ");
         historia[cont][1]=h;
-        String i=String.valueOf("    "+table+"  ");
-        historia[cont][2]="     "+i+"x"+i+"  ";
-        String j=String.valueOf("    "+tama+"  ");
+        String i=String.valueOf("      "+table+"  ");
+        historia[cont][2]="    x"+i;
+        String j=String.valueOf("      "+tama+"  ");
         historia[cont][3]=j;
     }
     public void borrar(){
@@ -134,12 +142,12 @@ public class Menu {
         cuerpo[n][0]=x;
         cuerpo[n][1]=y;
         n++;
-        if(n==tama) n=1;
+        if(n==(tama+1)) n=1;
     }
     public void comida(){
-
-        a=(int)(Math.random()*table);
-        b=(int)(Math.random()*table);
+        a=(int)(Math.random()*table-1);
+        b=(int)(Math.random()*table-1);
+        tablero[a][b]="\033[32m%";
     }
     public void teclas(){
         System.out.println("Ingrese su movimiento, W = Arriba, A = Izquierda, S = Abajo, D = Derecha, E = Salir ");
@@ -167,26 +175,25 @@ public class Menu {
                    //teclas        
     }
     public void Inicio(){
-        System.out.println("##################################");
-        System.out.println("###################################");
-        System.out.println("###           Munu             #####");
-        System.out.println("#####################################");
-        System.out.println("###  1) Inicio del juego       #######");
-        System.out.println("#######################################");
-        System.out.println("###  2) Datos Estudiante       #########");
-        System.out.println("#########################################");
-        System.out.println("###  3) Historial de partidas  ###########");
-        System.out.println("###########################################");
-        System.out.println("###  4) Salir                  #############");
-        System.out.println("#############################################");
-        System.out.println("##############################################");
-        System.out.println("# Seleccione el numero de la opcion deseada ###");
-        System.out.println("################################################");
+        System.out.println("\033[32m##################################");
+        System.out.println("\033[32m###################################");
+        System.out.println("###            Munu            ");
+        System.out.println("\033[32m#####################################");
+        System.out.println("###  1) Inicio del juego       ");
+        System.out.println("\033[32m#######################################");
+        System.out.println("###  2) Datos Estudiante       ");
+        System.out.println("\033[32m#########################################");
+        System.out.println("###  3) Historial de partidas  ");
+        System.out.println("\033[32m###########################################");
+        System.out.println("###  4) Salir                  ");
+        System.out.println("\033[32m#############################################");
+        System.out.println("\033[32m##############################################");
+        System.out.println("# Seleccione el numero de la opcion deseada ");
+        System.out.println("\033[32m################################################");
         opcion=in.nextInt();
         borrar();
     }
     public void imphisto(){
-     historial();
      for(int i=0;i<6;i++){   
             System.out.println(" ");
             for(int j=0;j<4;j++){
