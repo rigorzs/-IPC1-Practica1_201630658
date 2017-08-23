@@ -35,6 +35,15 @@ public class Menu {
                    System.out.println("");
                    teclas(); 
                    guardarposicion();
+                  try{
+                       juegotabla();
+                       
+                   }
+                   catch(ArrayIndexOutOfBoundsException e){
+                       gameover();
+                       menu();
+                   }
+                           
                 }
                 if(cont==6){
                     cont=1;
@@ -76,6 +85,7 @@ public class Menu {
                     tablero[(cuerpo[n+1][1])][(cuerpo[n+1][0])]="\033[32m?";
                     tablero[(cuerpo[n-1][1])][(cuerpo[n-1][0])]="\033[32m?";
                     tablero[(cuerpo[n+2][1])][(cuerpo[n+2][0])]="\033[32m?";
+                    
                 }else{tablero[(cuerpo[n][1])][(cuerpo[n][0])]=" ";}
                 if(a==cuerpo[n][1] && b==cuerpo[n][0]){
                 tama++;
@@ -83,6 +93,7 @@ public class Menu {
                 puntos++;
                 comida();
                 }
+                
                 System.out.print(tablero[i][j]);
             } 
         }
@@ -119,7 +130,7 @@ public class Menu {
         puntos=0;
         System.out.println("Ingrese nombre de usuario");
         nombre=in.next();        
-        System.out.println("ingrese rama;o del tablero mayor a 10");
+        System.out.println("ingrese tama;o del tablero mayor a 10");
         table=in.nextInt();
         tablero=new String[(table+1)][(table+1)];
         mitad=table/2;
@@ -127,7 +138,7 @@ public class Menu {
         y=mitad;
         //condicion tama;o de tablero mayor a 10
         while(table<10){
-            System.out.println("ingrese # de columnas mayor a 10");
+            System.out.println("ingrese tama;o de de tablero mayor a 10");
             table=in.nextInt();
             mitad=table/2;
             tablero=new String[(table+1)][(table+1)];
@@ -145,9 +156,9 @@ public class Menu {
         if(n==(tama+1)) n=1;
     }
     public void comida(){
-        a=(int)(Math.random()*table-1);
-        b=(int)(Math.random()*table-1);
-        tablero[a][b]="\033[32m%";
+        a=(int)(Math.random()*table-2);
+        b=(int)(Math.random()*table-2);
+        tablero[a][b]="\033[33m%";
     }
     public void teclas(){
         System.out.println("Ingrese su movimiento, W = Arriba, A = Izquierda, S = Abajo, D = Derecha, E = Salir ");
@@ -168,10 +179,18 @@ public class Menu {
                    if("e".equals(movimiento) || "E".equals(movimiento)){
                        tct=5;
                    }
-                   if(tct==1)y--;
-                   if(tct==2)y++;
-                   if(tct==3)x--;
-                   if(tct==4)x++;
+                   if(tct==1){
+                       if(tct!=2)y--;
+                   }
+                   if(tct==2){
+                       if(tct!=1)y++;
+                   }
+                   if(tct==3){
+                       if(tct!=4)x--;
+                   }
+                   if(tct==4){
+                       if(tct!=3)x++;
+                   }
                    //teclas        
     }
     public void Inicio(){
@@ -202,5 +221,20 @@ public class Menu {
                 System.out.print(historia[i][j]);
             } 
         }
+    }
+    public void gameover(){
+        borrar();
+        System.out.println("\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("\033[33m@@                              @@");
+        System.out.println("\033[33m@@                              @@");
+        System.out.println("\033[33m@@                              @@");
+        System.out.println("\033[33m@@         GAME OVER :(         @@");
+        System.out.println("\033[33m@@                              @@");
+        System.out.println("\033[33m@@                              @@");
+        System.out.println("\033[33m@@                              @@");
+        System.out.println("\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("");
+        System.out.println("ingese cualquier letra para continuar");
+        cualquiera=in.next();
     }
 }
