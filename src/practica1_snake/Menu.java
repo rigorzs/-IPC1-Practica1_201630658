@@ -41,6 +41,7 @@ public class Menu {
                        
                    }
                    catch(ArrayIndexOutOfBoundsException e){
+                       
                        gameover();
                        menu();
                    }
