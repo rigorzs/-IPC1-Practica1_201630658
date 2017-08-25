@@ -10,7 +10,6 @@ package practica1_snake;
  * @author Juan RigobertoZuñiga
  */
 public class Practica1_snake {
-     int opcion,hor,ver,tam;
      String nombre;
     /**
      * @param args the command line arguments
