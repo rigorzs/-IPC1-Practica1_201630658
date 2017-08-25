@@ -12,7 +12,7 @@ package practica1_snake;
 import java.util.Scanner;
 public class Menu {
     Scanner in=new Scanner(System.in);  
-    int opcion,tama,table,cuerpo[][]=new int[300][2],n=1,x,y,mitad,tct,puntos=0;
+    int opcion,tama,table,cuerpo[][]=new int[300][2],n=1,x,y,mitad,tct,puntos,punteo,pnt;
     int cont=1,a=0,b=0;
     String nombre;
     String movimiento;
@@ -28,12 +28,13 @@ public class Menu {
                 iniciojuego();
                 guardarposicion();
                 borrar();
+                comida();
                 //movimientos
                 while(tct!=5){ 
                    borrar();
                    juegotabla();
                    System.out.println("");
-                   teclas(); 
+                   teclas();
                    guardarposicion();
                   try{
                        juegotabla();
@@ -50,10 +51,12 @@ public class Menu {
                 }else{historial();cont++;}
                 //finmovimientos
                 tct=1;
+                exit();
                  menu();
                 break;
             case 2:
-                
+                animacion();
+                menu();
                 break;
             case 3:
                 imphisto();
@@ -68,8 +71,10 @@ public class Menu {
         }    
     }
     public void juegotabla(){
-        System.out.println("Nombre: "+nombre+"    Tama;o: "+tama);
-        System.out.println("Puntaje: "+puntos);
+        System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+        System.out.println("| Nombre: "+nombre+"    Tama;o: "+tama+"       ");
+        System.out.println("| Puntaje: "+puntos+"                          ");
+        System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
         for(int i=0;i<(table+1);i++){   
             System.out.println(" ");
             for(int j=0;j<(table+1);j++){
@@ -90,18 +95,35 @@ public class Menu {
                 if(a==cuerpo[n][1] && b==cuerpo[n][0]){
                 tama++;
                 tablero[a][b]=" ";
-                puntos++;
+                puntos=puntos+punteo;
+                punteo=0;
                 comida();
                 }
                 
                 System.out.print(tablero[i][j]);
             } 
         }
-        
-        System.out.println("");   
+        System.out.println("");
+        System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+        System.out.println("");
+        System.out.println("fruto: ("+a+","+b+") Punteo "+pnt);
+        System.out.println("");
+        System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
     }
     public void animacion(){
-        
+        borrar();
+        System.out.println("\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("\033[33m@@                                  @@");
+        System.out.println("\033[33m@@                                  @@");
+        System.out.println("\033[33m@@  Nombre:                         @@");
+        System.out.println("\033[33m@@     Juan Rigoberto Zuñiga        @@");
+        System.out.println("\033[33m@@  Carne:                          @@");
+        System.out.println("\033[33m@@     201630658                    @@");
+        System.out.println("\033[33m@@                                  @@");
+        System.out.println("\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("");
+        System.out.println("ingese cualquier letra para continuar");
+        cualquiera=in.next();       
     }
     public void historial(){
         historia[0][0]="JUGADOR:  #";
@@ -158,7 +180,15 @@ public class Menu {
     public void comida(){
         a=(int)(Math.random()*table-2);
         b=(int)(Math.random()*table-2);
+        if(a==0){
+            a=(int)(Math.random()*table-2);
+        }
+        if(b==0){
+            b=(int)(Math.random()*table-2);
+        }
         tablero[a][b]="\033[33m%";
+        punteo=(Math.abs((table/2)-b));
+        pnt=punteo;
     }
     public void teclas(){
         System.out.println("Ingrese su movimiento, W = Arriba, A = Izquierda, S = Abajo, D = Derecha, E = Salir ");
@@ -178,6 +208,7 @@ public class Menu {
                    }
                    if("e".equals(movimiento) || "E".equals(movimiento)){
                        tct=5;
+                       
                    }
                    if(tct==1){
                        if(tct!=2)y--;
@@ -234,6 +265,31 @@ public class Menu {
         System.out.println("\033[33m@@                              @@");
         System.out.println("\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         System.out.println("");
+         tablero=new String[0][0];
+        for(int i=0;i<100;i++){
+            cuerpo[i][0]=0;
+            cuerpo[i][1]=0;
+        }
+        System.out.println("ingese cualquier letra para continuar");
+        cualquiera=in.next();
+    }
+    public void exit(){
+         borrar();
+        System.out.println("\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("\033[33m@@                                  ");
+        System.out.println("\033[33m@@                                  ");
+        System.out.println("\033[33m@@  Numbre:                         ");
+        System.out.println("\033[33m@@       "+nombre+"                 ");
+        System.out.println("\033[33m@@  Punteo:                         ");
+        System.out.println("\033[33m@@       "+puntos+"                 ");
+        System.out.println("\033[33m@@                                  ");
+        System.out.println("\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("");
+        tablero=new String[0][0];
+        for(int i=0;i<100;i++){
+            cuerpo[i][0]=0;
+            cuerpo[i][1]=0;
+        }
         System.out.println("ingese cualquier letra para continuar");
         cualquiera=in.next();
     }
